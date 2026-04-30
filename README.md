@@ -115,6 +115,7 @@ Important post-deployment considerations would include:
 - champion-vs-personalized policy testing through online experimentation
 
 ## Repository Structure
+```text
 
 cta_prediction_case/
 ├── README.md
