@@ -1,12 +1,12 @@
 # CTA Prediction Case Study
 
 A machine learning case study on optimizing call-to-action (CTA) engagement in a mortgage-style lead generation funnel.  
-The project focuses on predicting the probability that a user clicks a CTA, while also analyzing how CTA copy and placement affect downstream business value such as form submissions, appointments, and revenue per impression. :contentReference[oaicite:0]{index=0}
+The project focuses on predicting the probability that a user clicks a CTA, while also analyzing how CTA copy and placement affect downstream business value such as form submissions, appointments, and revenue per impression.
 
 ## Project Overview
 
 This project analyzes a randomized CTA experiment in which users were shown different combinations of CTA copy and page placement.  
-The modeling task is to predict `Pr(clickedCTA = 1)` for each user session, with **log loss** as the primary evaluation metric. At the same time, the broader business goal is to improve the conversion funnel and maximize downstream value, not just clicks. :contentReference[oaicite:1]{index=1}
+The modeling task is to predict `Pr(clickedCTA = 1)` for each user session, with **log loss** as the primary evaluation metric. At the same time, the broader business goal is to improve the conversion funnel and maximize downstream value, not just clicks.
 
 ## Business Framing
 
@@ -18,7 +18,7 @@ but also:
 
 - *Which CTA option should be shown to which type of user?*
 
-A key finding from the analysis is that the CTA combination with the highest click-through rate was **not** the same as the one with the highest revenue per impression. That means optimizing only for CTR can leave business value on the table. :contentReference[oaicite:2]{index=2}
+A key finding from the analysis is that the CTA combination with the highest click-through rate was **not** the same as the one with the highest revenue per impression. That means optimizing only for CTR can leave business value on the table.
 
 ## Dataset
 
@@ -33,7 +33,7 @@ The case study uses a structured session-level dataset with:
 - CTA copy and CTA placement
 - downstream outcomes such as form submission, appointment scheduling, and revenue
 
-The prediction target is `clickedCTA`, and the deliverable is a predicted probability for each test record. :contentReference[oaicite:3]{index=3}
+The prediction target is `clickedCTA`, and the deliverable is a predicted probability for each test record.
 
 ## Approach
 
@@ -41,7 +41,7 @@ The prediction target is `clickedCTA`, and the deliverable is a predicted probab
 The first step was validating schema consistency, checking duplicates, and separating **decision-time features** from **downstream leakage features**.
 
 For the primary click model, only features plausibly available when the CTA is shown were retained.  
-Downstream variables such as submitted forms, scheduled appointments, mortgage variation, and revenue were excluded to avoid leakage. `scrollDepth` was also excluded from the primary model because it is observed after the CTA loads and would not be appropriate in a real-time decision setting. :contentReference[oaicite:4]{index=4}
+Downstream variables such as submitted forms, scheduled appointments, mortgage variation, and revenue were excluded to avoid leakage. `scrollDepth` was also excluded from the primary model because it is observed after the CTA loads and would not be appropriate in a real-time decision setting.
 
 ### 2. Exploratory data analysis
 The analysis examined:
@@ -61,7 +61,7 @@ Notable findings included:
 - best CTR placement: **Top**
 - best CTR copy: **“Get Pre-Approved for a Mortgage in 5 Minutes”**
 - best CTR combination: **that copy + Top placement**
-- best revenue-per-impression combination: **a different CTA + Bottom placement** :contentReference[oaicite:5]{index=5}
+- best revenue-per-impression combination: **a different CTA + Bottom placement**
 
 ### 3. Feature engineering
 Feature engineering focused on improving predictive signal while preserving decision-time realism. Techniques included:
@@ -74,7 +74,7 @@ Feature engineering focused on improving predictive signal while preserving deci
   - `sessionReferrer × ctaCopy`
 - contextual features from page content and URL structure
 
-These features were intended to capture user- and page-dependent differences in CTA effectiveness. :contentReference[oaicite:6]{index=6}
+These features were intended to capture user- and page-dependent differences in CTA effectiveness.
 
 ### 4. Modeling
 The modeling workflow compared:
@@ -89,14 +89,14 @@ The primary optimization metric was **log loss**, since the task requires predic
 - PR-AUC for positive-class discrimination
 - Brier score for probability quality and calibration awareness
 
-The final model selected was **random forest**, which achieved the best cross-validated log loss and supporting metrics. The interpretation was that tree-based models better captured the non-linearities and interactions in user behavior than the linear baseline. :contentReference[oaicite:7]{index=7}
+The final model selected was **random forest**, which achieved the best cross-validated log loss and supporting metrics. The interpretation was that tree-based models better captured the non-linearities and interactions in user behavior than the linear baseline.
 
 ## Key Insights
 
 - CTA placement was a major driver of click behavior.
 - User response varied meaningfully by context, including traffic source, device type, and visit frequency.
 - The highest-CTR CTA combination was not the same as the highest-revenue combination.
-- These patterns suggest that a **personalized CTA policy** may outperform a single global “champion” CTA. :contentReference[oaicite:8]{index=8}
+- These patterns suggest that a **personalized CTA policy** may outperform a single global “champion” CTA.
 
 ## Deployment Thinking
 
