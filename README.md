@@ -116,10 +116,8 @@ Important post-deployment considerations would include:
 
 ## Repository Structure
 
-```text
-.
-├── notebooks/
-├── src/
-├── outputs/
+cta_prediction_case/
 ├── README.md
-└── requirements.txt
+├── cta_personalization_case_study.ipynb
+└── make_submission.py
+
